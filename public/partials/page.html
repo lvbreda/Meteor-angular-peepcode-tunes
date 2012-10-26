@@ -1,0 +1,34 @@
+<div id="container">
+  <div class="playlist">
+    <h1>Playlist</h1>
+    <nav>
+      <button class="control play" ng-click="play()" ng-hide="player.playing">Play</button>
+      <button class="control pause" ng-click="pause()" ng-show="player.playing">Pause</button>
+      <button class="control prev" ng-click="previous()">Prev</button>
+      <button class="control next" ng-click="next()">Next</button>
+    </nav>
+    <ul class="albums">
+      <li class="album" ng-repeat="album in playlist"
+          ng-class="{current: player.current_album == $index}">
+        <button class="queue remove" ng-click="playlist.remove(album)"></button>
+        <span class="album-title">{{album.title}}</span>
+        <span class="artist-name">{{album.artist}}</span>
+        <ol class="tracks">
+          <li ng-repeat="track in album.tracks" class="track"
+              ng-class="{current: player.current_track == $index}"
+              ng-click="play($index, $parent.$index)">{{track.title}}</li>
+        </ol>
+      </li>
+    </ul>
+  </div>
+  <section class="library">
+    <h1>Music Library</h1>
+    <ul class="albums">
+      <li class="album current" ng-repeat="album in albums">
+        <button class="queue add" ng-click="playlist.add(album)"></button>
+        <span class="album-title">{{album.title}}</span>
+        <span class="artist-name">{{album.artist}}</span>
+      </li>
+    </ul>
+  </section>
+</div>
