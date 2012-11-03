@@ -103,9 +103,13 @@ if (Meteor.isServer) {
 		for (var i = 0; i < data.length; i++) {
 			Albums.insert(data[i]);
 		}
-		Playlist.insert([]);
+		Playlist.insert({albums: []});
 		
     // code to run on server at startup
   }
 });
 }
+
+Meteor.publish('albums', function () {
+  return Albums.find({});
+});

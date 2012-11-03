@@ -1,27 +1,28 @@
 function HomeCtrl($scope,$rootScope,$routeParams,$location,$timeout) {
-	// Meteor.subscribe("albums");
-	// Meteor.subscribe("player");
-	Meteor.autosubscribe(function () {
-		Meteor.subscribe("playlist", {
-			currentAlb: Session.get("current_album")
-		});
-	});
+	Meteor.subscribe("albums");
+	// Meteor.subscribe("playlist");
 	$scope.Albums = new Meteor.AngularCollection("albums", $scope);
 	$scope.albums = $scope.Albums.find({});
-	
-	$scope.Playlist = new Meteor.AngularCollection("playlist", $scope);
-	$scope.playlist = $scope.Playlist.findOne({});
+	// 
+	// $scope.Playlist = new Meteor.AngularCollection("playlist", $scope);
+	// $scope.playlist = $scope.Playlist.findOne();
 	
 	$scope.player = {};
 	$scope.player.current_album = 0;
 	$scope.player.current_track = 0;
 	$scope.player.playing = false;
 	
-	$scope.playlist.add = function(album) {
-		console.log("Adding album");
+	$scope.pl = {};
+	
+	$scope.poop = function() {
+		alert("huh");
+	};
+	
+	$scope.pl.add = function(album) {
+
 		if ($scope.playlist.indexOf(album) != -1) return;
-		$scope.playlist.push(album);
-		console.log($scope.playlist.length);
+			
+		// $scope.playlist.push(album);
 		$scope.playlist.$save();
 	};
 	
@@ -74,17 +75,15 @@ function HomeCtrl($scope,$rootScope,$routeParams,$location,$timeout) {
 		if (!$scope.playlist.length) return;
     $scope.player.playing = true;
     if ($scope.playlist[$scope.player.current_album].tracks.length > ($scope.player.current_track + 1)) {
-	console.log("Fir");
       $scope.player.current_track = $scope.player.current_track + 1;
     } else {
-	console.log("peeb");
       $scope.player.current_track = 0;
       $scope.player.current_album = ($scope.player.current_album + 1) % $scope.playlist.length;
     }
     if ($scope.player.playing) $scope.play();
 	}
 	
-	$scope.playlist.remove = function(album) {
+	$scope.pl.remove = function(album) {
 		var index = $scope.playlist.indexOf(album);
 		var pl_num = index + 1;
 		if (pl_num == $scope.player.current_album + 1) $scope.reset();

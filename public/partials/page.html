@@ -10,7 +10,7 @@
     <ul class="albums">
       <li class="album" ng-repeat="album in playlist"
           ng-class="{current: player.current_album == $index}">
-        <button class="queue remove" ng-click="playlist.remove(album)"></button>
+        <button class="queue remove" ng-click="pl.remove(album)"></button>
         <span class="album-title">{{album.title}}</span>
         <span class="artist-name">{{album.artist}}</span>
         <ol class="tracks">
@@ -25,7 +25,7 @@
     <h1>Music Library</h1>
     <ul class="albums">
       <li class="album current" ng-repeat="album in albums">
-        <button class="queue add" ng-click="playlist.add(album)"></button>
+        <button class="queue add" ng-click="pl.add(album)"></button>
         <span class="album-title">{{album.title}}</span>
         <span class="artist-name">{{album.artist}}</span>
       </li>
